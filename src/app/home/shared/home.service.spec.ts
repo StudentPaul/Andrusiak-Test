@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ContactUsService } from './contact-us.service';
+import { HomeService } from './home.service';
 
 describe('ServiceDirectoryService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ContactUsService]
+      providers: [HomeService]
     });
   });
 
-  it('should be created', inject([ContactUsService], (service: ContactUsService) => {
+  it('should be created', inject([HomeService], (service: HomeService) => {
     expect(service).toBeTruthy();
   }));
 });

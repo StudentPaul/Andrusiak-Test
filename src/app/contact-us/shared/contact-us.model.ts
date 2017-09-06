@@ -1,6 +1,4 @@
-export class Category {
+export class EnquiryType {
   id: number;
-  icon: string;
-  title: string;
-  count: number;
+  name: string;
 }

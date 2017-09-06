@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CarModule} from './car/car.module';
-import {DriverModule} from './driver/driver.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'cars',  loadChildren: 'app/car/car.module#CarModule' },
-  { path: 'drivers',  loadChildren: 'app/driver/driver.module#DriverModule' },
+
+  { path: 'contact-us',  loadChildren: 'app/contact-us/contact-us.module#ContactUsModule' },
+  { path: 'home',  loadChildren: 'app/home/home.module#HomeModule' },
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({
