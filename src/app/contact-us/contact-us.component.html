@@ -1,3 +1,57 @@
-<p>
-  contact-us works!
-</p>
+<div id="contact-us">
+  <img src="../../assets/Image.png">
+  <img src="../../assets/BG.png">
+  <div id="controls-container">
+    <div class="header">
+      <span class="logo"></span>
+      <button class="login-btn">Log In Now</button>
+    </div>
+    <div class="title">
+      <h1>Home of Dentistry</h1>
+      <h2>Denteez was created by dentists for dentistry in order to make the life of everyone involved in dentistry easier</h2>
+    </div>
+    <form name="form">
+      <p>Fields marked "*" are required</p>
+      <label for="enquiryType">Enquiry Type *</label>
+      <select id="enquiryType" name="enquiryType" ngModel #enquiryType="ngModel">
+        <option *ngFor="let type of enquiryTypes">{{type.name}}</option>
+      </select>
+      <input *ngIf="enquiryType.value=='Other'" name="other" placeholder="Other" type="text" ngModel #other="ngModel">
+
+      <div class="form-row">
+        <div class="name">
+          <label for="name">Name *</label>
+          <input id="name" name="name" type="text" ngModel #name="ngModel" required>
+          <label class="caution-msg" [hidden]="!(name.invalid&&name.touched)">Please enter a valid name!</label>
+        </div>
+        <div class="email">
+          <label for="email">Email *</label>
+          <input id="email" name="email" type="email" ngModel #email="ngModel" email required>
+          <label class="caution-msg" [hidden]="!(email.invalid&&email.touched)">Please enter a valid email address!</label>
+        </div>
+      </div>
+      <label for="subject">Subject *</label>
+      <input id="subject" name="subject" type="text" ngModel #subject="ngModel" required>
+
+      <label for="description">Description *</label>
+      <label id="text-counter" for="description">{{description.value.length}}/1000</label>
+      <textarea rows="4" id="description" name="description"  ngModel #description="ngModel" required maxlength="1000"></textarea>
+      <label id="file-label" for="imageFile">
+        <div>
+          <p class="add-photo">Add photo</p>
+          <p class="photo-req">Minimum size of 300x300 jpeg ipg png 5 MB</p>
+          <p *ngIf="image.invalid" class="photo-invalid">The photo does not meet the requirements</p>
+        </div>
+      </label>
+      <input id="imageFile" minWidth="300" minHeight="300" name="image" type="file" ngModel #image="ngModel">
+      <div *ngIf="image.invalid">
+        <p *ngIf="image.errors.width" >width should be higher than 300px!</p>
+      </div>
+    </form>
+    <button id="submit-btn" [disabled]="email.invalid||subject.invalid||name.invalid||description.invalid">Submit</button>
+  </div>
+
+</div>
+
+
+
