@@ -37,18 +37,25 @@
       <label id="text-counter" for="description">{{description.value.length}}/1000</label>
       <textarea rows="4" id="description" name="description"  ngModel #description="ngModel" required maxlength="1000"></textarea>
       <label id="file-label" for="imageFile">
-        <div>
+        <div *ngIf="imageInput.invalid||!image||imageWidth <= 300 || imageHeight <= 300">
           <p class="add-photo">Add photo</p>
           <p class="photo-req">Minimum size of 300x300 jpeg ipg png 5 MB</p>
-          <p *ngIf="image.invalid" class="photo-invalid">The photo does not meet the requirements</p>
+          <p *ngIf="imageInput.invalid || imageWidth <= 300 || imageHeight <= 300" class="photo-invalid">
+            The photo does not meet the requirements
+          </p>
         </div>
       </label>
-      <input id="imageFile" minWidth="300" minHeight="300" name="image" type="file" ngModel #image="ngModel">
-      <div *ngIf="image.invalid">
-        <p *ngIf="image.errors.width" >width should be higher than 300px!</p>
-      </div>
+      <input id="imageFile" maxSize="5" (change)="imageUpdated($event)"
+             accept=".jpg,.jpeg,.png"
+             name="image" type="file" ngModel #imageInput="ngModel">
     </form>
-    <button id="submit-btn" [disabled]="email.invalid||subject.invalid||name.invalid||description.invalid">Submit</button>
+
+    <button id="submit-btn" [disabled]="email.invalid||subject.invalid||name.invalid||description.invalid||
+    imageInput.invalid ||
+    imageWidth <= 300 || imageHeight <= 300">
+      Submit
+    </button>
+
   </div>
 
 </div>

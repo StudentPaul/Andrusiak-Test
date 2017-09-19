@@ -44,18 +44,19 @@ export class ContactUsComponent implements OnInit {
     this.image.onload = event => {
       this.imageWidth = event.path[0].width;
       this.imageHeight = event.path[0].height;
+      document.getElementById('file-label').style.backgroundImage = 'url(' + this.image.src + ')';
     };
     this.image.src = window.URL.createObjectURL(this.file);
-    const formData = new FormData();
-    formData.append('file', this.file);
-
-    const headers = new Headers({});
-    const options = new RequestOptions({ headers });
-    const url = environment.apiUrl + '/support';
-
-    this.http.post(url, formData, options).subscribe(res => {
-      alert('callback');
-    });
+    // const formData = new FormData();
+    // formData.append('file', this.file);
+    //
+    // const headers = new Headers({});
+    // const options = new RequestOptions({ headers });
+    // const url = environment.apiUrl + '/support';
+    //
+    // this.http.post(url, formData, options).subscribe(res => {
+    //   alert('callback');
+    // });
   }
 
 }
