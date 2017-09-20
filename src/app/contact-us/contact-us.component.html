@@ -8,34 +8,37 @@
     </div>
     <div class="title">
       <h1>Home of Dentistry</h1>
-      <h2>Denteez was created by dentists for dentistry in order to make the life of everyone involved in dentistry easier</h2>
+      <h2>Denteez was created by dentists for dentistry in order
+        to make the life of everyone involved in dentistry easier</h2>
     </div>
     <form name="form">
       <p>Fields marked "*" are required</p>
       <label for="enquiryType">Enquiry Type *</label>
-      <select id="enquiryType" name="enquiryType" ngModel #enquiryType="ngModel">
+      <select id="enquiryType" name="enquiryType" [(ngModel)]="enquiryTypeValue" ngModel #enquiryType="ngModel">
         <option *ngFor="let type of enquiryTypes">{{type.name}}</option>
       </select>
-      <input *ngIf="enquiryType.value=='Other'" name="other" placeholder="Other" type="text" ngModel #other="ngModel">
+      <input *ngIf="enquiryType.value=='Other'" name="other" placeholder="Other" type="text"
+             [(ngModel)]="otherTypeValue" ngModel #other="ngModel">
 
       <div class="form-row">
         <div class="name">
           <label for="name">Name *</label>
-          <input id="name" name="name" type="text" ngModel #name="ngModel" required>
+          <input id="name" name="name" type="text" [(ngModel)]="nameValue" ngModel #name="ngModel" required>
           <label class="caution-msg" [hidden]="!(name.invalid&&name.touched)">Please enter a valid name!</label>
         </div>
         <div class="email">
           <label for="email">Email *</label>
-          <input id="email" name="email" type="email" ngModel #email="ngModel" email required>
+          <input id="email" name="email" type="email" [(ngModel)]="emailValue" ngModel #email="ngModel" email required>
           <label class="caution-msg" [hidden]="!(email.invalid&&email.touched)">Please enter a valid email address!</label>
         </div>
       </div>
       <label for="subject">Subject *</label>
-      <input id="subject" name="subject" type="text" ngModel #subject="ngModel" required>
+      <input id="subject" name="subject" type="text" [(ngModel)]="subjectValue" ngModel #subject="ngModel" required>
 
       <label for="description">Description *</label>
       <label id="text-counter" for="description">{{description.value.length}}/1000</label>
-      <textarea rows="4" id="description" name="description"  ngModel #description="ngModel" required maxlength="1000"></textarea>
+      <textarea rows="4" id="description" name="description"
+                [(ngModel)]="descriptionValue"  ngModel #description="ngModel" required maxlength="1000"></textarea>
       <label id="file-label" for="imageFile">
         <div *ngIf="imageInput.invalid||!image||imageWidth <= 300 || imageHeight <= 300">
           <p class="add-photo">Add photo</p>
@@ -50,9 +53,12 @@
              name="image" type="file" ngModel #imageInput="ngModel">
     </form>
 
-    <button id="submit-btn" [disabled]="email.invalid||subject.invalid||name.invalid||description.invalid||
-    imageInput.invalid ||
-    imageWidth <= 300 || imageHeight <= 300">
+    <button id="submit-btn" disabled [disabled]="email.invalid||email.pristine||
+    subject.invalid||subject.pristine||
+    name.invalid||name.pristine||
+    description.invalid||description.pristine||
+    imageInput.invalid ||imageWidth < 300 || imageHeight < 300"
+    (click)="postFormData()" >
       Submit
     </button>
 

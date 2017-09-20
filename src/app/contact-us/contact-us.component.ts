@@ -21,6 +21,12 @@ export class ContactUsComponent implements OnInit {
   image: any;
   imageWidth: number;
   imageHeight: number;
+  enquiryTypeValue: string;
+  otherTypeValue: string;
+  nameValue: string
+  emailValue: string;
+  subjectValue: string;
+  descriptionValue: string;
 
   constructor(private contactUsService: ContactUsService, private http: Http) { }
 
@@ -47,16 +53,23 @@ export class ContactUsComponent implements OnInit {
       document.getElementById('file-label').style.backgroundImage = 'url(' + this.image.src + ')';
     };
     this.image.src = window.URL.createObjectURL(this.file);
-    // const formData = new FormData();
-    // formData.append('file', this.file);
-    //
-    // const headers = new Headers({});
-    // const options = new RequestOptions({ headers });
-    // const url = environment.apiUrl + '/support';
-    //
-    // this.http.post(url, formData, options).subscribe(res => {
-    //   alert('callback');
-    // });
+  }
+  postFormData() {
+    this.contactUsService.postFormData(
+      this.descriptionValue,
+      this.emailValue,
+      this.enquiryTypeValue === 'Other' ? this.enquiryTypeValue : this.otherTypeValue,
+      this.file || null,
+      this.subjectValue,
+      this.nameValue
+    )
+      .subscribe(
+        message => {
+          alert(message)
+          console.log(message);
+        },
+        error => {console.log(error); }
+      );
   }
 
 }

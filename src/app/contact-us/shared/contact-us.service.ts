@@ -18,5 +18,25 @@ export class ContactUsService {
         return response.json();
       });
   }
+  postFormData(description: string, email: string,
+               enquiryType: string, file: File, subject: string, username: string ) {
+    const formData = new FormData();
+    if (file) {
+      formData.append('file', file);
+    }
+    formData.append('description', description);
+    formData.append('email', email);
+    formData.append('enquiry_type', enquiryType);
+    formData.append('user_name', username);
+    formData.append('subject', subject);
+    const headers = new Headers({});
+     const options = new RequestOptions({ headers });
+     const url = environment.apiUrl + '/support';
+    return this.http
+      .post(url, formData, options)
+      .map(response => {
+        return response.json();
+      });
+  }
 
 }
